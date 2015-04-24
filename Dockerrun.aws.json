@@ -4,10 +4,6 @@
     "name": "data",
     "host": {
       "sourcePath": "/var/app/data"
-    },
-    "name": "logs",
-    "host": {
-      "sourcePath": "/var/app/logs"
     }
   },
   "containerDefinitions": [{
@@ -22,7 +18,7 @@
       "sourceVolume": "data",
       "containerPath": "/data"
     }, {
-      "sourceVolume": "logs",
+      "sourceVolume": "awseb-logs-mongodb",
       "containerPath": "/var/logs/mongodb"
     }]
   }]
