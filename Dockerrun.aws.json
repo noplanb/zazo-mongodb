@@ -1,19 +1,29 @@
 {
-  "AWSEBDockerrunVersion": "1",
-  "Image": {
-    "Name": "mongo",
-    "Update": "true"
+  "AWSEBDockerrunVersion": "2",
+  "volumes": {
+    "name": "data",
+    "host": {
+      "sourcePath": "/var/app/data"
+    },
+    "name": "logs",
+    "host": {
+      "sourcePath": "/var/app/logs"
+    }
   },
-  "Ports": [
-    {
-      "ContainerPort": "27017"
-    }
-  ],
-  "Volumes": [
-    {
-      "HostDirectory": "/var/app/data",
-      "ContainerDirectory": "/data"
-    }
-  ],
-  "Logging": "/var/log/mongodb"
+  "containerDefinitions": [{
+    "name": "mongodb",
+    "image": "mongo",
+    "essential": true,
+    "portMappings": [{
+      "hostPort": 27017,
+      "containerPort": 27017
+    }],
+    "mountPoints": [{
+      "sourceVolume": "data",
+      "containerPath": "/data"
+    }, {
+      "sourceVolume": "logs",
+      "containerPath": "/var/logs/mongodb"
+    }]
+  }]
 }
